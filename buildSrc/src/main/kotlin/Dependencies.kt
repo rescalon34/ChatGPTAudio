@@ -75,6 +75,11 @@ object Deps {
         const val hiltComposeNavigation = "androidx.hilt:hilt-navigation-compose:${CommonVersions.hiltNavigationComposeVersion}"
     }
 
+    object Coroutines {
+        const val coroutinesVersion = "1.3.9"
+        const val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
+    }
+
     object Networking {
         const val retrofitVersion = "2.9.0"
         const val logginInterceptorVersion = "4.8.0"
