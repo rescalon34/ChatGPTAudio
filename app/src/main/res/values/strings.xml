@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">ChatGPTAudio</string>
+    <string name="transcription_title">Lover Boy</string>
+    <string name="transcription_subtitle">Transcription</string>
+    <string name="translation_title">RIMA I</string>
+    <string name="translation_subtitle">Translation</string>
 </resources>

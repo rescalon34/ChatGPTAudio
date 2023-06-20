@@ -56,6 +56,7 @@ object Deps {
         private const val composeViewModelVersion = "2.4.1"
         private const val material3Version = "1.2.0-alpha01"
         private const val navigationVersion = "2.5.3"
+        private const val coilVersion = "2.2.0"
 
         // dependencies
         const val activity = "androidx.activity:activity-compose:$activityComposeVersion"
@@ -67,6 +68,7 @@ object Deps {
         const val testManifest = "androidx.compose.ui:ui-test-manifest:$composeVersion"
         const val viewModel = "androidx.lifecycle:lifecycle-viewmodel-compose:$composeViewModelVersion"
         const val composeNavigation = "androidx.navigation:navigation-compose:${navigationVersion}"
+        const val coil = "io.coil-kt:coil-compose:${coilVersion}"
     }
 
     object Hilt {

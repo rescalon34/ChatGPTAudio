@@ -5,7 +5,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.escalondev.chatgptaudio.R
+import com.escalondev.chatgptaudio.ui.util.ItemType
 import com.escalondev.domain.interactor.home.CreateTranscriptionUseCase
+import com.escalondev.domain.model.SpeechItem
 import com.escalondev.domain.util.onFailure
 import com.escalondev.domain.util.onSuccess
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -28,30 +31,55 @@ class HomeViewModel @Inject constructor(
         createTranscriptionUseCase.invoke(
             file = file,
             model = TRANSCRIPTION_MODEL
-        )?.onSuccess {
-            uiState = uiState.copy(message = it.text.orEmpty())
+        )?.onSuccess { transcription ->
+            val sonItems = uiState.speechItems.toMutableList()
+            sonItems.find { it.idType == ItemType.Transcription.itemType }?.text = transcription.text.orEmpty()
+
+            uiState = uiState.copy(speechItems = sonItems)
             uiState = uiState.copy(isLoading = false)
         }?.onFailure {
-            uiState = uiState.copy(message = it.message.orEmpty())
             uiState = uiState.copy(isLoading = false)
         }
     }
 
+    fun setupSpeechItemList() {
+        uiState = uiState.copy(
+            speechItems = mutableListOf(
+                SpeechItem(
+                    idType = ItemType.Transcription.itemType,
+                    title = R.string.transcription_title,
+                    subTitle = R.string.transcription_subtitle,
+                    text = "",
+                    image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWGcbqlYbUuPG5Mk4ecW44O6s94HfbIJ2nBQ&usqp=CAU",
+                    icon = R.drawable.ic_transcription
+                ),
+                SpeechItem(
+                    idType = ItemType.Translation.itemType,
+                    title = R.string.translation_title,
+                    subTitle = R.string.translation_subtitle,
+                    text = "",
+                    image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSt_ceWDcZBVK8r8lij-sOmjpoYjRT4qZ-tJM1Q7ozYySyTyX2ofGWU-fpg-UM83Ew14a8&usqp=CAU",
+                    icon = R.drawable.ic_translate
+                )
+            )
+        )
+    }
+
     data class UIState(
-        var message: String = "",
+        var speechItems: List<SpeechItem> = emptyList(),
         var isLoading: Boolean = false
     )
 
     fun onUIEvent(uiEvent: UIEvent) {
         when (uiEvent) {
-            is UIEvent.OnButtonClick -> {
+            is UIEvent.OnTranscriptionClick -> {
                 createTranscription(uiEvent.file)
             }
         }
     }
 
     sealed class UIEvent {
-        data class OnButtonClick(val file: File) : UIEvent()
+        data class OnTranscriptionClick(val file: File) : UIEvent()
     }
 
     companion object {

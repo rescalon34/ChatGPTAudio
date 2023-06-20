@@ -69,6 +69,7 @@ dependencies {
     implementation(Deps.Compose.material3)
     implementation(Deps.Compose.testManifest)
     implementation(Deps.Compose.composeNavigation)
+    implementation(Deps.Compose.coil)
     implementation(Deps.Compose.uiToolingPreview)
     implementation(Deps.Compose.viewModel)
 
