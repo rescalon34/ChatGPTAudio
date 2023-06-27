@@ -1,5 +1,5 @@
 package com.escalondev.domain.model
 
-data class Transcription(
+data class Speech(
     val text: String?
 )

@@ -1,7 +1,7 @@
 package com.escalondev.domain.di
 
-import com.escalondev.domain.interactor.home.CreateTranscriptionUseCase
-import com.escalondev.domain.interactor.home.CreateTranscriptionUseCaseImpl
+import com.escalondev.domain.interactor.home.CreateSpeechToTextUseCase
+import com.escalondev.domain.interactor.home.CreateSpeechToTextUseCaseImpl
 import com.escalondev.domain.repository.HomeRepository
 import dagger.Module
 import dagger.Provides
@@ -13,6 +13,6 @@ import dagger.hilt.components.SingletonComponent
 object InteractionModule {
 
     @Provides
-    fun createTranscriptionUseCase(homeRepository: HomeRepository): CreateTranscriptionUseCase =
-        CreateTranscriptionUseCaseImpl(homeRepository)
+    fun createTranscriptionUseCase(homeRepository: HomeRepository): CreateSpeechToTextUseCase =
+        CreateSpeechToTextUseCaseImpl(homeRepository)
 }

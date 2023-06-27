@@ -1,13 +1,14 @@
 package com.escalondev.domain.interactor.home
 
-import com.escalondev.domain.model.Transcription
+import com.escalondev.domain.model.Speech
 import com.escalondev.domain.util.Result
 import java.io.File
 
-interface CreateTranscriptionUseCase {
+interface CreateSpeechToTextUseCase {
 
     suspend operator fun invoke(
         file: File,
-        model: String
-    ): Result<Transcription>?
+        model: String,
+        isTranscription: Boolean
+    ): Result<Speech>?
 }
