@@ -16,6 +16,9 @@ android {
         targetSdk = ProjectConfiguration.targetSdk
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "BASE_URL", (project.properties["baseUrl"] ?: "").toString())
+        buildConfigField("String", "API_KEY", (project.properties["apiKey"] ?: "").toString())
     }
 
     buildTypes {
@@ -43,12 +46,18 @@ kapt {
 
 dependencies {
 
+    // modules
+    implementation(project(":domain"))
+
     // hilt
     implementation(Deps.Hilt.android)
     kapt(Deps.Hilt.androidCompiler)
 
     // core
     api(Deps.Core.coreKtx)
+
+    // coroutines
+    api(Deps.Coroutines.coroutines)
 
     // networking
     implementation(Deps.Networking.retrofit)
