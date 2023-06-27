@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.escalondev.chatgptaudio.R
 import com.escalondev.chatgptaudio.ui.util.ItemType
-import com.escalondev.domain.interactor.home.CreateTranscriptionUseCase
+import com.escalondev.domain.interactor.home.CreateSpeechToTextUseCase
 import com.escalondev.domain.model.SpeechItem
 import com.escalondev.domain.util.onFailure
 import com.escalondev.domain.util.onSuccess
@@ -19,21 +19,31 @@ import kotlinx.coroutines.launch
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val createTranscriptionUseCase: CreateTranscriptionUseCase
+    private val createSpeechToTextUseCase: CreateSpeechToTextUseCase,
 ) : ViewModel() {
 
     // UIState
     var uiState by mutableStateOf(UIState())
         private set
 
-    private fun createTranscription(file: File) = viewModelScope.launch(Dispatchers.IO) {
+    private fun createTranscription(
+        file: File,
+        isTranscription: Boolean
+    ) = viewModelScope.launch(Dispatchers.IO) {
         uiState = uiState.copy(isLoading = true)
-        createTranscriptionUseCase.invoke(
+        createSpeechToTextUseCase.invoke(
             file = file,
-            model = TRANSCRIPTION_MODEL
-        )?.onSuccess { transcription ->
+            model = TRANSCRIPTION_MODEL,
+            isTranscription = isTranscription
+        )?.onSuccess { speech ->
             val sonItems = uiState.speechItems.toMutableList()
-            sonItems.find { it.idType == ItemType.Transcription.itemType }?.text = transcription.text.orEmpty()
+            if (isTranscription) {
+                sonItems.find { it.idType == ItemType.Transcription.itemType }?.text =
+                    speech.text.orEmpty()
+            } else {
+                sonItems.find { it.idType == ItemType.Translation.itemType }?.text =
+                    speech.text.orEmpty()
+            }
 
             uiState = uiState.copy(speechItems = sonItems)
             uiState = uiState.copy(isLoading = false)
@@ -73,13 +83,17 @@ class HomeViewModel @Inject constructor(
     fun onUIEvent(uiEvent: UIEvent) {
         when (uiEvent) {
             is UIEvent.OnTranscriptionClick -> {
-                createTranscription(uiEvent.file)
+                createTranscription(uiEvent.file, isTranscription = true)
+            }
+            is UIEvent.OnTranslationClick -> {
+                createTranscription(uiEvent.file, isTranscription = false)
             }
         }
     }
 
     sealed class UIEvent {
         data class OnTranscriptionClick(val file: File) : UIEvent()
+        data class OnTranslationClick(val file: File) : UIEvent()
     }
 
     companion object {

@@ -1,7 +1,5 @@
 package com.escalondev.chatgptaudio.ui.screen.home
 
-import android.widget.Toast
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,13 +12,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.escalondev.chatgptaudio.ui.component.SpeechItemComponent
 import com.escalondev.chatgptaudio.ui.screen.home.HomeViewModel.UIEvent.OnTranscriptionClick
+import com.escalondev.chatgptaudio.ui.screen.home.HomeViewModel.UIEvent.OnTranslationClick
 import com.escalondev.chatgptaudio.ui.screen.home.HomeViewModel.UIState
 import com.escalondev.chatgptaudio.ui.uielement.LoadingIndicator
 import com.escalondev.chatgptaudio.ui.util.ItemType
@@ -35,12 +32,9 @@ fun HomeScreen(
         homeViewModel.setupSpeechItemList()
     }
 
-    val context = LocalContext.current
-
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
-            .background(Color.DarkGray)
             .fillMaxSize()
     ) {
         HomeScreenContent(
@@ -51,7 +45,9 @@ fun HomeScreen(
                         OnTranscriptionClick(getExternalFile("lover-boy", ".mp3"))
                     )
                 } else {
-                    Toast.makeText(context, "TBD", Toast.LENGTH_SHORT).show()
+                    homeViewModel.onUIEvent(
+                        OnTranslationClick(getExternalFile("rima1", ".mp3"))
+                    )
                 }
             },
         )
