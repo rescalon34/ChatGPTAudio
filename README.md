@@ -18,12 +18,11 @@ This project is made using the following technologies, frameworks, dependencies:
 [- ChatGPT Speech to text API](https://platform.openai.com/docs/guides/speech-to-text)
 
 #### Screenshots ####
+![Screen Shot 2023-06-27 at 6 08 16 PM](https://github.com/rescalon34/ChatGPTAudio/assets/52270734/d1b99bf6-e1e9-46bc-9d27-60e3c880faad)
+![Screen Shot 2023-06-27 at 6 07 19 PM](https://github.com/rescalon34/ChatGPTAudio/assets/52270734/e34739cd-8aaf-4076-8fe4-8bdbee5906e6)
 
-![image](https://github.com/rescalon34/ChatGPTAudio/assets/52270734/3f82a22d-b0c9-4075-8bc9-c222a3523e26)
+![Screen Shot 2023-06-27 at 6 07 38 PM](https://github.com/rescalon34/ChatGPTAudio/assets/52270734/e85467d3-1e44-4400-b0e3-9b947afb6ace)
 
-![image](https://github.com/rescalon34/ChatGPTAudio/assets/52270734/56ba7dca-295f-4da3-9d52-b878820ec01a)
-
-![image](https://github.com/rescalon34/ChatGPTAudio/assets/52270734/af7d9fd3-3daf-405e-ad8a-67044b604a71)
 
 
 #### Note ####
