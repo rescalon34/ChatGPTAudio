@@ -36,16 +36,16 @@ class HomeViewModel @Inject constructor(
             model = TRANSCRIPTION_MODEL,
             isTranscription = isTranscription
         )?.onSuccess { speech ->
-            val sonItems = uiState.speechItems.toMutableList()
+            val speechItems = uiState.speechItems.toMutableList()
             if (isTranscription) {
-                sonItems.find { it.idType == ItemType.Transcription.itemType }?.text =
+                speechItems.find { it.idType == ItemType.Transcription.itemType }?.text =
                     speech.text.orEmpty()
             } else {
-                sonItems.find { it.idType == ItemType.Translation.itemType }?.text =
+                speechItems.find { it.idType == ItemType.Translation.itemType }?.text =
                     speech.text.orEmpty()
             }
 
-            uiState = uiState.copy(speechItems = sonItems)
+            uiState = uiState.copy(speechItems = speechItems)
             uiState = uiState.copy(isLoading = false)
         }?.onFailure {
             uiState = uiState.copy(isLoading = false)
